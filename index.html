@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Muhammad Sooman — Flutter Developer</title>
+  <meta name="description" content="Portfolio of Muhammad Sooman — Flutter developer specializing in high‑quality mobile apps with GetX/Provider, sockets, live streaming, and clean UI/UX." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='96' fill='%2300D1B2'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-size='96' font-family='Inter' fill='white'%3EMS%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+  <!-- Progress bar -->
+  <div class="progress" id="progress"></div>
+
+  <!-- Preloader -->
+  <div id="preloader" class="preloader" aria-hidden="true">
+    <div class="spinner"></div>
+    <p>Booting up awesomeness…</p>
+  </div>
+
+  <header class="header">
+    <a href="#" class="logo" aria-label="Home">
+      <span class="logo-mark">MS</span>
+      <span class="logo-text">Muhammad Sooman</span>
+    </a>
+
+    <nav class="nav" aria-label="Primary">
+      <button id="themeToggle" class="icon-btn" aria-label="Toggle theme" title="Toggle theme">
+        <span class="icon">🌓</span>
+      </button>
+      <button id="menuToggle" class="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul id="navLinks" class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero section" id="home">
+      <div class="hero-content">
+        <div class="badge">Available for opportunities</div>
+        <h1 class="headline">
+          Hi, I'm <span class="accent">Sooman</span> —
+          <br />
+          <span class="gradient">Flutter Developer</span>
+        </h1>
+        <p class="subhead">
+          Results‑driven Flutter developer (3+ years) building high‑quality, performant apps with modern
+          state management, sockets, live streaming, and polished UI/UX.
+        </p>
+        <div class="cta">
+          <a class="btn primary" href="#projects">See Projects</a>
+          <a class="btn ghost" href="#contact">Contact Me</a>
+          <a class="btn outline" href="Muhammad-Sooman-resume.pdf" download>Download Resume</a>
+        </div>
+        <ul class="quick-stats">
+          <li><strong>3+</strong> Years Experience</li>
+          <li><strong>1x</strong> Employee of the Month</li>
+          <li><strong>2+</strong> Years Freelancing</li>
+        </ul>
+      </div>
+
+      <div class="hero-visual">
+        <div class="blob"></div>
+        <div class="card glass tilt" data-tilt>
+          <h3>Tech Snapshot</h3>
+          <ul>
+            <li>Flutter • Dart</li>
+            <li>GetX • Provider</li>
+            <li>Sockets • REST APIs</li>
+            <li>UI/UX • Animations</li>
+          </ul>
+        </div>
+        <div class="floating-tags">
+          <span class="chip">Live Streaming</span>
+          <span class="chip">State Management</span>
+          <span class="chip">Clean Architecture</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="section container reveal">
+      <div class="grid two">
+        <div>
+          <h2 class="section-title">About Me</h2>
+          <p>
+            Results‑driven Flutter developer with a strong focus on clean, scalable code and modern UI/UX.
+            Comfortable working in fast‑paced, collaborative teams and shipping production‑ready apps.
+          </p>
+          <ul class="pill-list">
+            <li>Communication</li>
+            <li>Problem Solving</li>
+            <li>Teamwork</li>
+          </ul>
+        </div>
+        <div class="about-cards">
+          <div class="card">
+            <h3>Core Stack</h3>
+            <p>Flutter, Dart, GetX, Provider, REST APIs, WebSockets</p>
+          </div>
+          <div class="card">
+            <h3>What I Love</h3>
+            <p>Crafting smooth animations, pixel‑perfect UI, and robust architecture.</p>
+          </div>
+          <div class="card">
+            <h3>Currently</h3>
+            <p>Exploring advanced Flutter patterns & performance tuning.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="section container reveal">
+      <h2 class="section-title center">Skills</h2>
+      <div class="skills-wrap">
+        <div class="skill">
+          <span>Flutter</span><div class="bar"><span style="--w:92%"></span></div>
+        </div>
+        <div class="skill">
+          <span>GetX / Provider</span><div class="bar"><span style="--w:90%"></span></div>
+        </div>
+        <div class="skill">
+          <span>API Integration</span><div class="bar"><span style="--w:88%"></span></div>
+        </div>
+        <div class="skill">
+          <span>Sockets / Realtime</span><div class="bar"><span style="--w:85%"></span></div>
+        </div>
+        <div class="skill">
+          <span>UI/UX & Animations</span><div class="bar"><span style="--w:90%"></span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience" class="section container reveal">
+      <h2 class="section-title center">Experience</h2>
+      <div class="timeline">
+        <article class="timeline-item">
+          <div class="time-dot"></div>
+          <div class="timeline-card card glass">
+            <h3>Flutter Developer — VativeApps</h3>
+            <p class="meta">1 year</p>
+            <p>Contributed to multiple production apps, focusing on performance, bug fixes, and polished UI.</p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="time-dot"></div>
+          <div class="timeline-card card glass">
+            <h3>Flutter Developer — Digital Door</h3>
+            <p class="meta">2 months</p>
+            <p>Frontend features & UI implementation in Flutter, collaborating closely with designers.</p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="time-dot"></div>
+          <div class="timeline-card card glass">
+            <h3>Freelance Flutter Developer</h3>
+            <p class="meta">2+ years</p>
+            <p>Delivered full‑cycle Flutter apps for clients, from architecture to deployment.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="section container reveal">
+      <h2 class="section-title center">Highlighted Projects</h2>
+
+      <div class="projects-grid">
+        <article class="project-card card">
+          <div class="project-header">
+            <h3>Yugo App (User & Driver)</h3>
+            <span class="tag">Team Project</span>
+          </div>
+          <p class="project-desc">Order food or grocery, plus mobility features.</p>
+          <ul class="project-features">
+            <li>Complete Auth</li>
+            <li>KYC for Driver</li>
+            <li>Ride Booking & Rent a Car</li>
+            <li>Freight Vehicle</li>
+            <li>Integrated Payments</li>
+          </ul>
+        </article>
+
+        <article class="project-card card">
+          <div class="project-header">
+            <h3>Cravo</h3>
+            <span class="tag">Client App</span>
+          </div>
+          <p class="project-desc">Order food & grocery with tracking and chat.</p>
+          <ul class="project-features">
+            <li>Place Order</li>
+            <li>Order Tracking</li>
+            <li>Chat with Rider</li>
+          </ul>
+        </article>
+
+        <article class="project-card card">
+          <div class="project-header">
+            <h3>Cravo Business</h3>
+            <span class="tag">B2B</span>
+          </div>
+          <p class="project-desc">Register businesses and sell products.</p>
+          <ul class="project-features">
+            <li>Order Management</li>
+            <li>Menu Management</li>
+            <li>Wallet System</li>
+          </ul>
+        </article>
+
+        <article class="project-card card">
+          <div class="project-header">
+            <h3>OurLive</h3>
+            <span class="tag">Social / Live</span>
+          </div>
+          <p class="project-desc">Scroll posts, go live, create communities.</p>
+          <ul class="project-features">
+            <li>Live Streaming</li>
+            <li>Communities</li>
+            <li>Short‑video Feed</li>
+            <li>Bug Fixing & Maintenance</li>
+          </ul>
+        </article>
+
+        <article class="project-card card">
+          <div class="project-header">
+            <h3>Kikasha Social App</h3>
+            <span class="tag">Social</span>
+          </div>
+          <p class="project-desc">Social features for client app.</p>
+          <ul class="project-features">
+            <li>Firebase CRUD</li>
+            <li>Like / Unlike</li>
+            <li>Polls & Petitions</li>
+            <li>Forums</li>
+            <li>UI Designing</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- Education & Achievements -->
+    <section id="education" class="section container reveal">
+      <h2 class="section-title center">Education & Achievements</h2>
+      <div class="grid three">
+        <div class="card">
+          <h3>Bachelor in Computer Science</h3>
+          <p>DHA Suffa University</p>
+        </div>
+        <div class="card">
+          <h3>Intermediate</h3>
+          <p>Usman Public School System</p>
+        </div>
+        <div class="card">
+          <h3>Matriculation</h3>
+          <p>Usman Public School System</p>
+        </div>
+        <div class="card">
+          <h3>Achievements</h3>
+          <ul class="simple-list">
+            <li>Employee of the Month</li>
+            <li>Certificate of Appreciation</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="section container reveal">
+      <h2 class="section-title center">Get in Touch</h2>
+      <div class="contact-card card glass">
+        <p>Let's build something great together.</p>
+        <div class="contact-actions">
+          <a class="btn primary" href="mailto:mdsooman663@gmail.com">Email Me</a>
+          <a class="btn ghost" href="tel:+923362573190">Call: +92 336 2573190</a>
+          <a class="btn outline" href="https://www.linkedin.com/in/sooman-shaikh-87755020a/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© <span id="year"></span> Muhammad Sooman. Built with ❤️ using HTML, CSS & JS.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

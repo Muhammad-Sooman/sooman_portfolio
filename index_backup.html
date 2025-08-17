@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Muhammad Sooman — Flutter Developer</title>
+  <meta name="description" content="Portfolio of Muhammad Sooman — Flutter developer specializing in high‑quality mobile apps with GetX/Provider, sockets, live streaming, and clean UI/UX." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b0d10; 
+      --card:#12151a; 
+      --text:#e8eef7; 
+      --muted:#9fb0c3; 
+      --brand:#4dd0e1; 
+      --brand-2:#6c5ce7; 
+      --accent:#81ecec; 
+      --ring: rgba(77,208,225,.45);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background: radial-gradient(1200px 600px at 80% -10%, rgba(108,92,231,.15), transparent 60%),
+                  radial-gradient(900px 500px at 10% 120%, rgba(77,208,225,.12), transparent 60%),
+                  var(--bg);
+      line-height:1.6;
+    }
+
+    /* ====== Global helpers ====== */
+    .container{width:min(1100px, 92vw); margin-inline:auto}
+    .grid{display:grid; gap:1.2rem}
+    .btn{
+      display:inline-flex; align-items:center; gap:.6rem; 
+      background:linear-gradient(90deg, var(--brand), var(--brand-2));
+      color:#0a0d12; font-weight:700; border:0; padding:.9rem 1.1rem; 
+      border-radius:16px; cursor:pointer; position:relative; isolation:isolate;
+      transition: transform .2s ease, box-shadow .2s ease;
+      box-shadow: 0 8px 20px rgba(108,92,231,.35);
+    }
+    .btn:hover{transform:translateY(-2px)}
+    .btn:after{content:""; position:absolute; inset:0; border-radius:inherit; 
+      background: radial-gradient(400px 100px at var(--x,50%) var(--y,50%), rgba(255,255,255,.25), transparent 40%);
+      opacity:.0; transition:opacity .2s ease}
+    .btn:hover:after{opacity:1}
+
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    /* ====== Navbar ====== */
+    .nav{
+      position:sticky; top:0; z-index:50; backdrop-filter:saturate(120%) blur(8px);
+      background: color-mix(in oklab, var(--bg), transparent 40%);
+      border-bottom:1px solid color-mix(in oklab, var(--muted), transparent 75%);
+    }
+    .nav-inner{display:flex; align-items:center; justify-content:space-between; padding:.8rem 0}
+    .brand{display:flex; align-items:center; gap:.7rem; font-weight:800; letter-spacing:.3px}
+    .brand .logo{width:36px; aspect-ratio:1; border-radius:12px; background:conic-gradient(from 210deg, var(--brand), var(--brand-2)); box-shadow:var(--shadow)}
+    .links{display:flex; gap:1rem; flex-wrap:wrap}
+    .links a{color:var(--text); opacity:.85; padding:.5rem .8rem; border-radius:12px}
+    .links a.active, .links a:hover{background:color-mix(in oklab, var(--card), transparent 20%); opacity:1}
+
+    /* ====== Hero ====== */
+    .hero{padding:8rem 0 4rem; position:relative}
+    .hero .headline{font-family:Poppins, Inter, system-ui; font-weight:800; line-height:1.1; font-size:clamp(1.9rem, 6vw, 3.5rem)}
+    .hero .sub{color:var(--muted); max-width:55ch}
+    .hero-wrap{display:grid; grid-template-columns: 1.2fr .8fr; gap:2rem; align-items:center}
+    .hero-card{
+      background:linear-gradient(180deg, color-mix(in oklab, var(--card), transparent 10%), rgba(13,18,24,.6));
+      border:1px solid color-mix(in oklab, var(--muted), transparent 75%);
+      border-radius:22px; padding:1.2rem; box-shadow:var(--shadow);
+      position:relative; overflow:hidden;
+    }
+    .hero-badge{display:flex; gap:.6rem; align-items:center; 
+      background:rgba(108,92,231,.15); border:1px solid rgba(108,92,231,.35);
+      padding:.35rem .6rem; border-radius:999px; width:max-content; font-size:.85rem}
+
+    .orbit{
+      position:absolute; inset:-30% -40% auto auto; translate: 0 -10px; pointer-events:none;
+      filter: drop-shadow(0 6px 30px rgba(108,92,231,.25));
+      animation: float 8s ease-in-out infinite;
+    }
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+    /* ====== Sections ====== */
+    section{padding:4rem 0; position:relative}
+    .section-title{font-family:Poppins, Inter; font-weight:800; font-size:clamp(1.4rem, 3.5vw, 2rem); margin:0 0 1rem}
+    .muted{color:var(--muted)}
+
+    .cards{display:grid; gap:1rem; grid-template-columns: repeat(12, 1fr)}
+    .card{grid-column: span 12; background:linear-gradient(180deg, rgba(17,22,28,.7), rgba(15,18,24,.6));
+      border:1px solid color-mix(in oklab, var(--muted), transparent 72%); border-radius:18px; padding:1.1rem; box-shadow:var(--shadow);
+      transition: transform .25s ease, box-shadow .25s ease; position:relative; overflow:hidden}
+    .card:hover{transform: translateY(-4px)}
+
+    .card .title{font-weight:700; font-size:1.05rem}
+    .card .chips{display:flex; gap:.5rem; flex-wrap:wrap; margin-top:.6rem}
+    .chip{padding:.35rem .55rem; border:1px solid color-mix(in oklab, var(--muted), transparent 65%); border-radius:999px; font-size:.8rem; opacity:.9}
+    .card .desc{color:var(--muted); margin-top:.6rem}
+
+    /* Responsive spans */
+    .span-6{grid-column: span 6}
+    .span-4{grid-column: span 4}
+    .span-8{grid-column: span 8}
+    .span-3{grid-column: span 3}
+    @media (max-width: 900px){
+      .hero-wrap{grid-template-columns: 1fr}
+      .span-6,.span-4,.span-8,.span-3{grid-column: span 12}
+    }
+
+    /* ====== Timeline ====== */
+    .timeline{position:relative; margin-top:1rem}
+    .timeline:before{content:""; position:absolute; left:12px; top:0; bottom:0; width:2px; background:linear-gradient(transparent, var(--brand), transparent)}
+    .tl-item{position:relative; padding-left:2.4rem; margin:1rem 0}
+    .tl-item:before{content:""; position:absolute; left:6px; top:.4rem; width:14px; height:14px; border-radius:50%; background:radial-gradient(circle at 40% 40%, #fff, var(--brand)); box-shadow:0 0 0 6px rgba(77,208,225,.12)}
+
+    /* ====== Footer ====== */
+    footer{padding:3rem 0 4rem; color:var(--muted); border-top:1px solid color-mix(in oklab, var(--muted), transparent 75%)}
+
+    /* ====== Reveal Animations ====== */
+    .reveal{opacity:0; transform: translateY(14px); filter: saturate(.7)}
+    .reveal.show{opacity:1; transform:none; filter:none; transition: all .6s cubic-bezier(.2,.8,.2,1)}
+
+    /* Fancy underline */
+    .u{
+      background: linear-gradient(120deg, rgba(108,92,231,.25), rgba(77,208,225,.25));
+      border-bottom:2px solid color-mix(in oklab, var(--brand), var(--brand-2));
+      padding:0 .25rem; border-radius:6px;
+    }
+
+    /* Contact chips */
+    .contact{display:flex; gap:.6rem; flex-wrap:wrap; margin-top:1rem}
+    .contact a{background:color-mix(in oklab, var(--card), transparent 15%); border:1px solid color-mix(in oklab, var(--muted), transparent 70%); padding:.55rem .75rem; border-radius:12px}
+
+    /* Scroll to top */
+    #toTop{position:fixed; right:18px; bottom:18px; opacity:0; pointer-events:none}
+    #toTop.show{opacity:1; pointer-events:auto}
+
+    /* Code-friendly selection */
+    ::selection{background:rgba(77,208,225,.25)}
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="container nav-inner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <span>Sooman • Flutter Dev</span>
+      </div>
+      <nav class="links">
+        <a href="#about" class="active">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero container">
+      <img class="orbit" width="280" height="280" alt="decorative orb" src="data:image/svg+xml;utf8,\
+        <svg xmlns='http://www.w3.org/2000/svg' width='280' height='280' viewBox='0 0 280 280'>\
+          <defs>\
+            <radialGradient id='g' cx='50%' cy='50%' r='50%'>\
+              <stop offset='0%' stop-color='%23ffffff' stop-opacity='.9'/>\
+              <stop offset='60%' stop-color='%234dd0e1' stop-opacity='.65'/>\
+              <stop offset='100%' stop-color='transparent'/>\
+            </radialGradient>\
+          </defs>\
+          <circle cx='140' cy='140' r='130' fill='url(%23g)'/>\
+        </svg>">
+      <div class="hero-wrap">
+        <div class="hero-card reveal" style="padding:1.6rem">
+          <div class="hero-badge">Available for freelance & full‑time</div>
+          <h1 class="headline" style="margin:.8rem 0 0">Hi, I’m <span class="u">Muhammad Sooman</span> — Flutter Developer</h1>
+          <p class="sub">Results‑driven Flutter developer with 3+ years of experience building high‑quality, performant apps. Strong in GetX/Provider state management, sockets, live streaming, and modern UI/UX. I focus on clean, scalable code and fast iterations with teams.</p>
+          <div class="contact">
+            <a href="mailto:mdsooman663@gmail.com" class="chip">mdsooman663@gmail.com</a>
+            <a href="tel:+923362573190" class="chip">+92 336 2573190</a>
+            <a href="https://www.linkedin.com/in/sooman-shaikh-87755020a/" target="_blank" rel="noreferrer" class="chip">LinkedIn</a>
+            <a href="sandbox:/mnt/data/Muhammad-Sooman-resume.pdf" class="chip" download>Download Résumé</a>
+          </div>
+          <div style="margin-top:1.2rem; display:flex; gap:.8rem; flex-wrap:wrap">
+            <button class="btn" onclick="scrollToEl('#projects')">See Projects</button>
+            <button class="btn" onclick="scrollToEl('#contact')">Hire Me</button>
+          </div>
+        </div>
+        <div class="grid reveal" style="gap:1rem">
+          <div class="card">
+            <div class="title">Core Focus</div>
+            <div class="desc">Flutter • Dart • Clean Architecture • BLoC/GetX/Provider • REST/GraphQL • WebSockets • Firebase • Agora/Live Streaming • Payments</div>
+            <div class="chips"><span class="chip">UI/UX</span><span class="chip">Performance</span><span class="chip">Animations</span><span class="chip">Testing</span></div>
+          </div>
+          <div class="card">
+            <div class="title">What I bring</div>
+            <div class="desc">Communication, problem‑solving, and teamwork. Comfortable owning features end‑to‑end from product brief to store deployment and analytics.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="container">
+      <h2 class="section-title">Featured Projects</h2>
+      <p class="muted">Production apps built for clients and teams. Tap a card for details.</p>
+      <div class="cards">
+        <article class="card span-6 reveal" tabindex="0">
+          <div class="title">Yugo App — User & Driver</div>
+          <p class="desc">Multi‑service platform for ride booking, freight, car rentals, and deliveries. Includes complete auth and KYC for drivers, in‑app payments, chat, and order tracking.</p>
+          <div class="chips">
+            <span class="chip">Flutter</span><span class="chip">KYC</span><span class="chip">Payments</span><span class="chip">Chat</span>
+          </div>
+        </article>
+        <article class="card span-6 reveal" tabindex="0">
+          <div class="title">Cravo — Consumer</div>
+          <p class="desc">Food & grocery ordering app with order placement, tracking, and rider chat. Built with scalable state management and modular architecture.</p>
+          <div class="chips"><span class="chip">GetX</span><span class="chip">Push Notifications</span><span class="chip">CI/CD</span></div>
+        </article>
+        <article class="card span-6 reveal" tabindex="0">
+          <div class="title">Cravo Business</div>
+          <p class="desc">Companion app for merchants to manage menus, orders, and wallet. Real‑time updates and secure access roles.</p>
+          <div class="chips"><span class="chip">Order Mgmt</span><span class="chip">Wallet</span><span class="chip">Role‑based</span></div>
+        </article>
+        <article class="card span-6 reveal" tabindex="0">
+          <div class="title">OurLive</div>
+          <p class="desc">Social app with vertical video feed, communities, and live streaming. Worked on streaming integration and ongoing bug‑fix/optimizations.</p>
+          <div class="chips"><span class="chip">Live Streaming</span><span class="chip">Communities</span><span class="chip">Video Feed</span></div>
+        </article>
+        <article class="card span-6 reveal" tabindex="0">
+          <div class="title">Kikasha — Social</div>
+          <p class="desc">Community app with polls, petitions, forums, and rich post interactions. Firebase CRUD and custom UI components.</p>
+          <div class="chips"><span class="chip">Firebase</span><span class="chip">CRUD</span><span class="chip">UI Design</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="skills" class="container">
+      <h2 class="section-title">Skills</h2>
+      <div class="cards">
+        <div class="card span-4 reveal">
+          <div class="title">Flutter & Architecture</div>
+          <p class="desc">Widgets, animations, custom painters, platform channels, clean architecture, SOLID.</p>
+          <div class="chips"><span class="chip">Flutter</span><span class="chip">Dart</span><span class="chip">Animations</span></div>
+        </div>
+        <div class="card span-4 reveal">
+          <div class="title">State Management</div>
+          <p class="desc">GetX, Provider, BLoC. Reactive patterns, dependency injection, navigation, theming.</p>
+          <div class="chips"><span class="chip">GetX</span><span class="chip">Provider</span><span class="chip">BLoC</span></div>
+        </div>
+        <div class="card span-4 reveal">
+          <div class="title">Full Stack Touchpoints</div>
+          <p class="desc">REST/GraphQL APIs, sockets, Firebase, auth, payments, analytics, CI/CD.</p>
+          <div class="chips"><span class="chip">WebSockets</span><span class="chip">Firebase</span><span class="chip">Payments</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience" class="container">
+      <h2 class="section-title">Experience</h2>
+      <div class="timeline">
+        <div class="tl-item reveal">
+          <div class="title">Flutter Developer — VativeApps</div>
+          <div class="muted">~1 year</div>
+          <div class="desc">Shipped production features, performance tuning, bug‑fixes, and app store releases.</div>
+        </div>
+        <div class="tl-item reveal">
+          <div class="title">Frontend Flutter Developer — Digital Door</div>
+          <div class="muted">~2 months</div>
+          <div class="desc">Implemented UI flows and APIs, collaborated closely with design and backend.</div>
+        </div>
+        <div class="tl-item reveal">
+          <div class="title">Freelance Projects</div>
+          <div class="muted">~2 years</div>
+          <div class="desc">End‑to‑end delivery for multiple clients — planning, development, testing, and release.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="education" class="container">
+      <h2 class="section-title">Education</h2>
+      <div class="cards">
+        <div class="card span-6 reveal">
+          <div class="title">Bachelor in Computer Science</div>
+          <div class="muted">DHA Suffa University</div>
+        </div>
+        <div class="card span-6 reveal">
+          <div class="title">Matriculation & Intermediate</div>
+          <div class="muted">Usman Public School System</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="achievements" class="container">
+      <h2 class="section-title">Achievements</h2>
+      <div class="cards">
+        <div class="card span-6 reveal">
+          <div class="title">Employee of the Month</div>
+          <p class="desc">Recognized for strong ownership and on‑time delivery.</p>
+        </div>
+        <div class="card span-6 reveal">
+          <div class="title">Certificate of Appreciation</div>
+          <p class="desc">For contributions across multiple product features and releases.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="container">
+      <h2 class="section-title">Contact</h2>
+      <p class="muted">Have a project or role in mind? Let’s talk.</p>
+      <div class="grid" style="grid-template-columns: 1fr 1fr; align-items:center">
+        <form class="card reveal" onsubmit="event.preventDefault(); thankYou();">
+          <label>Name<br><input required class="field" type="text" placeholder="Your name" /></label>
+          <label>Email<br><input required class="field" type="email" placeholder="you@example.com" /></label>
+          <label>Message<br><textarea required class="field" rows="5" placeholder="Tell me about your idea"></textarea></label>
+          <button class="btn" type="submit">Send Message</button>
+        </form>
+        <div class="reveal">
+          <div class="card">
+            <div class="title">Direct</div>
+            <div class="contact" style="margin:.8rem 0 0">
+              <a href="mailto:mdsooman663@gmail.com" class="chip">Email</a>
+              <a href="tel:+923362573190" class="chip">Phone</a>
+              <a href="https://www.linkedin.com/in/sooman-shaikh-87755020a/" target="_blank" rel="noreferrer" class="chip">LinkedIn</a>
+            </div>
+            <p class="muted" style="margin-top:.8rem">Based in Pakistan • Open to remote</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap">
+        <p>© <span id="y"></span> Muhammad Sooman.</p>
+        <a href="#top" id="backlink">Back to top ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <button id="toTop" class="btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">↑</button>
+
+  <style>
+    /* Simple form fields (scoped after HTML for cascade priority) */
+    .field{width:100%; margin:.35rem 0 1rem; padding:.75rem .9rem; 
+      border-radius:12px; border:1px solid color-mix(in oklab, var(--muted), transparent 70%);
+      background:color-mix(in oklab, var(--card), transparent 12%); color:var(--text)}
+    .field:focus{outline:none; box-shadow:0 0 0 4px var(--ring)}
+  </style>
+
+  <script>
+    // Smooth scroll helper
+    function scrollToEl(sel){ document.querySelector(sel)?.scrollIntoView({behavior:'smooth', block:'start'}); }
+
+    // Button hover glow position
+    document.querySelectorAll('.btn').forEach(btn=>{
+      btn.addEventListener('pointermove', e=>{
+        const r = btn.getBoundingClientRect();
+        btn.style.setProperty('--x', (e.clientX - r.left) + 'px');
+        btn.style.setProperty('--y', (e.clientY - r.top) + 'px');
+      });
+    });
+
+    // Intersection Observer to reveal elements on scroll
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(ent=>{
+        if(ent.isIntersecting){ ent.target.classList.add('show'); io.unobserve(ent.target); }
+      })
+    }, {threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
+
+    // Show back-to-top after some scroll
+    const toTop = document.getElementById('toTop');
+    window.addEventListener('scroll', ()=>{
+      if (window.scrollY > 600) toTop.classList.add('show'); else toTop.classList.remove('show');
+    });
+
+    // Simple thank-you animation for form
+    function confetti(x, y){
+      const n = 18; const d = document.createDocumentFragment();
+      for(let i=0;i<n;i++){
+        const s = document.createElement('span');
+        s.style.position='fixed'; s.style.left=x+'px'; s.style.top=y+'px';
+        s.style.width='6px'; s.style.height='10px'; s.style.borderRadius='2px';
+        s.style.background = ['#4dd0e1','#6c5ce7','#81ecec','#a29bfe'][i%4];
+        s.style.transform=`rotate(${Math.random()*360}deg)`;
+        s.style.transition='all .9s cubic-bezier(.15,.8,.25,1)';
+        document.body.appendChild(s);
+        requestAnimationFrame(()=>{
+          s.style.left = (x + (Math.random()*2-1)*180) + 'px';
+          s.style.top = (y - (Math.random()*140+60)) + 'px';
+          s.style.opacity = '0';
+        });
+        setTimeout(()=> s.remove(), 950);
+      }
+    }
+    function thankYou(){
+      const btn = document.querySelector('form .btn');
+      const r = btn.getBoundingClientRect();
+      confetti(r.left + r.width/2, r.top + window.scrollY);
+      btn.textContent = 'Sent! I will reply soon';
+      setTimeout(()=> btn.textContent = 'Send Message', 2200);
+    }
+
+    // Year
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
